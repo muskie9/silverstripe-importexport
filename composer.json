@@ -1,20 +1,29 @@
 {
-    "name": "muskie9/silverstripe-importexport",
-    "description": "An upgrade to SilverStripe's bulk loading and exporting",
-    "type": "silverstripe-module",
-    "license": "MIT",
-    "keywords": ["csv","import","bulkload","export","data"],
-    "authors": [
-        {
-            "name": "Nic Horstmeier",
-            "email": "nhorstmeier@gmail.com"
-        }
-    ],
-    "require": {
-        "silverstripe/framework": "^3.1",
-        "goodby/csv": "^1.2"
-    },
-     "extra": {
-        "installer-name": "importexport"
+  "name": "muskie9/silverstripe-importexport",
+  "description": "An upgrade to SilverStripe's bulk loading and exporting",
+  "type": "silverstripe-module",
+  "license": "MIT",
+  "keywords": [
+    "csv",
+    "import",
+    "bulkload",
+    "export",
+    "data"
+  ],
+  "authors": [
+    {
+      "name": "Nic Horstmeier",
+      "email": "nhorstmeier@gmail.com"
     }
+  ],
+  "require": {
+    "silverstripe/framework": "^3.1",
+    "goodby/csv": "^1.2"
+  },
+  "extra": {
+    "installer-name": "importexport"
+  },
+  "require-dev": {
+    "codeclimate/php-test-reporter": "dev-master"
+  }
 }

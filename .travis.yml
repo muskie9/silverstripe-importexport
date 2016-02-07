@@ -1,28 +1,47 @@
 language: php
 
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - hhvm
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - tidy
+  code_climate:
+    repo_token: 96bb5886e03e04c9189e6de1434bfdaf5bdbd68248c14c0a78a8e4a010e24812
+
+before_install:
+  - pip install --user codecov
 
 env:
   global:
-    - "CORE_RELEASE=3.1"
-  matrix:
-    - DB=MYSQL
-    - DB=SQLITE
-    - DB=PGSQL 
+    - DB=MYSQL CORE_RELEASE=3.1
+
+    # Turn coverage off by default, as it's expensive time wise
+    - COVERAGE=0
+
+    # The path of the module when installed by composer
+    - MODULE_PATH=importexport
 
 matrix:
   allow_failures:
     - php: hhvm
+  include:
+    - php: 5.6
+      env: DB=MYSQL
+    - php: 5.5
+      env: DB=MYSQL
+    - php: 5.6
       env: DB=PGSQL
-    - php: hhvm
+    - php: 5.6
+      env: DB=MYSQL CORE_RELEASE=3.2
+    - php: 5.6
+      env: DB=PGSQL CORE_RELEASE=3.2
+    - php: 5.4
+      env: DB=SQLITE
+    - php: 5.3
       env: DB=MYSQL
     - php: hhvm
-      env: DB=SQLITE
+      env: DB=MYSQL
 
 before_script:
   - composer self-update
@@ -31,5 +50,6 @@ before_script:
   - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss
   - cd ~/builds/ss
 
-script:
-  - "vendor/bin/phpunit -c importexport/phpunit.xml.dist"
+#Execute tests with or without coverage
+after_script:
+  - "phpunit --coverage-clover build/logs/clover.xml"

@@ -1,18 +1,18 @@
 {
-    "name": "burnbright/silverstripe-importexport",
+    "name": "muskie9/silverstripe-importexport",
     "description": "An upgrade to SilverStripe's bulk loading and exporting",
     "type": "silverstripe-module",
     "license": "MIT",
     "keywords": ["csv","import","bulkload","export","data"],
     "authors": [
         {
-            "name": "Jeremy Shipman",
-            "email": "jeremy@burnbright.net"
+            "name": "Nic Horstmeier",
+            "email": "nhorstmeier@gmail.com"
         }
     ],
     "require": {
-        "silverstripe/framework": "3.1.x",
-        "goodby/csv": "1.2.x"
+        "silverstripe/framework": "^3.1",
+        "goodby/csv": "^1.2"
     },
      "extra": {
         "installer-name": "importexport"

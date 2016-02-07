@@ -63,6 +63,7 @@ class BetterBulkLoader extends BulkLoader {
 	/**
 	 * Set the BulkLoaderSource for this BulkLoader.
 	 * @param BulkLoaderSource $source
+     * @return $this
 	 */
 	public function setSource(BulkLoaderSource $source) {
 		$this->source = $source;
@@ -98,11 +99,19 @@ class BetterBulkLoader extends BulkLoader {
 		return $this;	
 	}
 
+    /**
+     * @param $dopubilsh
+     * @return $this
+     */
 	public function setPublishPages($dopubilsh){
 		$this->publishPages = $dopubilsh;
 		return $this;
 	}
 
+    /**
+     * @param mixed|null $filepath
+     * @return BulkLoader_Result
+     */
 	public function load($filepath = null) {
 		if($this->deleteExistingRecords) {
 			$this->deleteExistingRecords();
@@ -150,9 +159,15 @@ class BetterBulkLoader extends BulkLoader {
 		return $results;
 	}
 
-	/**
-	 * Import the given record
-	 */
+    /**
+     * Import the given record
+     *
+     * @param array $record
+     * @param array $columnMap
+     * @param BulkLoader_Result $results
+     * @param bool $preview
+     * @return int
+     */
 	protected function processRecord($record, $columnMap, &$results, $preview = false) {
 		if(!is_array($record) || empty($record) || !array_filter($record)){
 			$results->addSkipped("Empty/invalid record data.");
@@ -232,10 +247,12 @@ class BetterBulkLoader extends BulkLoader {
 		return $objID;
 	}
 
-	/**
-	 * Convert the record's keys to appropriate columnMap keys.
-	 * @return array record
-	 */
+    /**
+     * Convert the record's keys to appropriate columnMap keys.
+     *
+     * @param $record
+     * @return array
+     */
 	protected function columnMapRecord($record){
 		$adjustedmap = $this->columnMap;
 		$newrecord = array();
@@ -523,6 +540,7 @@ class BetterBulkLoader extends BulkLoader {
 	 * Format mapping field laabel
 	 * @param  string $relationship
 	 * @param  string $title
+     * @return string
 	 */
 	protected function formatMappingFieldLabel($relationship, $title){
 		return sprintf("%s: %s", $relationship, $title);

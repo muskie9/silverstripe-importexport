@@ -165,10 +165,12 @@ class GridFieldImporter_Request extends RequestHandler {
 					->getMappableColumns();
 	}
 
-	/**
-	 * Import the current file
-	 * @param  SS_HTTPRequest $request
-	 */
+    /**
+     * Import the current file
+     *
+     * @param SS_HTTPRequest $request
+     * @return string
+     */
 	public function import(SS_HTTPRequest $request) {
 		$hasheader = (bool)$request->postVar('HasHeader');
 		$cleardata = $this->component->getCanClearData() ?
@@ -225,11 +227,13 @@ class GridFieldImporter_Request extends RequestHandler {
 		return $loader->load();
 	}
 
-	/**
-	 * Pass fileexists request to UploadField
-	 * 
-	 * @link UploadField->fileexists()
-	 */
+    /**
+     * Pass fileexists request to UploadField
+     *
+     * @link UploadField->fileexists()
+     * @param SS_HTTPRequest $request
+     * @return SS_HTTPResponse
+     */
 	public function fileexists(SS_HTTPRequest $request) {
 		$uploadField = $this->getUploadField();
 		return $uploadField->fileexists($request);
@@ -272,9 +276,10 @@ class GridFieldImporter_Request extends RequestHandler {
 		}
 	}
 
-	/**
-	 * Look for a previously stored user defined mapping.
-	 */
+    /**
+     * Look for a previously stored user defined mapping.
+     * @return mixed
+     */
 	protected function getCachedMapping() {
 		$cache = SS_Cache::factory('gridfieldimporter');
 		if($result = $cache->load($this->cacheKey())){
@@ -282,9 +287,11 @@ class GridFieldImporter_Request extends RequestHandler {
 		}
 	}
 
-	/**
-	 * Generate a cache key unique to this gridfield
-	 */
+    /**
+     * Generate a cache key unique to this gridfield
+     *
+     * @return string
+     */
 	protected function cacheKey(){
 		return md5($this->gridField->Link());
 	}

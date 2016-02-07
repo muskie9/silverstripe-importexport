@@ -23,6 +23,10 @@ class GridFieldImporter implements GridField_HTMLProvider, GridField_URLHandler 
 	 */
 	protected $canClearData = true;
 
+    /**
+     * GridFieldImporter constructor.
+     * @param string $targetFragment
+     */
 	public function __construct($targetFragment = "after") {
 		$this->targetFragment = $targetFragment;
 	}
@@ -30,6 +34,7 @@ class GridFieldImporter implements GridField_HTMLProvider, GridField_URLHandler 
 	/**
 	 * Set the bulk loader for this importer
 	 * @param BulkLoader
+     * @return $this
 	 */
 	public function setLoader(BulkLoader $loader) {
 		$this->loader = $loader;
@@ -49,9 +54,12 @@ class GridFieldImporter implements GridField_HTMLProvider, GridField_URLHandler 
 		return $this->loader;
 	}
 
-	/**
-	 * Scaffold a bulk loader, if none is provided
-	 */
+    /**
+     * Scaffold a bulk loader, if none is provided
+     *
+     * @param GridField $gridField
+     * @return mixed
+     */
 	public function scaffoldLoader(GridField $gridField) {
 		$gridlist = $gridField->getList();
 		$class = ($gridlist instanceof HasManyList) ?
@@ -132,19 +140,31 @@ class GridFieldImporter implements GridField_HTMLProvider, GridField_URLHandler 
 		return $uploadField;
 	}
 
+    /**
+     * @param $gridField
+     * @return array
+     */
 	public function getActions($gridField) {
 		return array('importer');
 	}
 
+    /**
+     * @param $gridField
+     * @return array
+     */
 	public function getURLHandlers($gridField) {
 		return array(
 			'importer' => 'handleImporter'
 		);
 	}
 
-	/**
-	 * Pass importer requests to a new GridFieldImporter_Request
-	 */
+    /**
+     * Pass importer requests to a new GridFieldImporter_Request
+     *
+     * @param $gridField
+     * @param null $request
+     * @return array|RequestHandler|SS_HTTPResponse|string
+     */
 	public function handleImporter($gridField, $request = null) {
 		$controller = $gridField->getForm()->getController();
 		$handler    = new GridFieldImporter_Request($gridField, $this, $controller);

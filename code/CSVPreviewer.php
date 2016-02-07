@@ -4,20 +4,38 @@
  */
 class CSVPreviewer extends ViewableData{
 
+    /**
+     * @var
+     */
 	protected $file;
 
+    /**
+     * @var
+     */
 	protected $headings;
 
+    /**
+     * @var
+     */
 	protected $rows;
 
+    /**
+     * @var int
+     */
 	protected $previewcount = 5;
 
+    /**
+     * CSVPreviewer constructor.
+     * @param $file
+     */
 	public function __construct($file) {
 		$this->file = $file;
 	}
 
 	/**
 	 * Choose the nubmer of lines to preview
+     *
+     * @return $this
 	 */
 	public function setPreviewCount($count) {
 		$this->previewcount = $count;
@@ -59,10 +77,11 @@ class CSVPreviewer extends ViewableData{
 		return $this->renderWith("CSVPreviewer");
 	}
 
-	/**
-	 * Get the CSV headings for use in template
-	 * @return ArrayList
-	 */
+    /**
+     * Get the CSV headings for use in template
+     *
+     * @return ArrayList|void
+     */
 	public function getHeadings() {
 		if(!$this->headings) return;
 		$out = new ArrayList();

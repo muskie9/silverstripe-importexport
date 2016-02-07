@@ -5,10 +5,20 @@
  */
 class CSVFieldMapper extends CSVPreviewer{
 
+    /**
+     * @var
+     */
 	protected $mappablecols;
 
+    /**
+     * @var
+     */
 	protected $mappingvalues;
 
+    /**
+     * @param $cols
+     * @return $this
+     */
 	public function setMappableCols($cols) {
 		$this->mappablecols = $cols;
 
@@ -17,6 +27,8 @@ class CSVFieldMapper extends CSVPreviewer{
 
 	/**
 	 * Set the values for the dropdowns
+     *
+     * @return $this
 	 */
 	public function loadDataFrom($values) {
 		$this->mappingvalues = $values;
@@ -47,6 +59,10 @@ class CSVFieldMapper extends CSVPreviewer{
 		return $out;
 	}
 
+    /**
+     * @param $heading
+     * @return mixed
+     */
 	protected function createHeadingDropdown($heading) {
 		return DropdownField::create("mappings[".$heading."]", 
 			"Dropdown", $this->mappablecols

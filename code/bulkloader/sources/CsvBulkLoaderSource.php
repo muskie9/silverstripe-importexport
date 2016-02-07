@@ -9,50 +9,90 @@ use Goodby\CSV\Import\Standard\LexerConfig;
  */
 class CsvBulkLoaderSource extends BulkLoaderSource{
 
+    /**
+     * @var
+     */
 	protected $filepath;
 
+    /**
+     * @var string
+     */
 	protected $delimiter = ',';
 
+    /**
+     * @var string
+     */
 	protected $enclosure = '"';
 
+    /**
+     * @var bool
+     */
 	protected $hasheader = true;
 
+    /**
+     * @param $path
+     * @return $this
+     */
 	public function setFilePath($path) {
 		$this->filepath = $path;
 
 		return $this;
 	}
 
+    /**
+     * @return mixed
+     */
 	public function getFilePath() {
 		return $this->filepath;
 	}
 
+    /**
+     * @param $delimiter
+     * @return $this
+     */
 	public function setFieldDelimiter($delimiter) {
 		$this->delimiter = $delimiter;
 
 		return $this;
 	}
 
+    /**
+     * @return string
+     */
 	public function getFieldDelimiter() {
 		return $this->delimiter;
 	}
 
+    /**
+     * @param $enclosure
+     * @return $this
+     */
 	public function setFieldEnclosure($enclosure) {
 		$this->enclosure = $enclosure;
 
 		return $this;
 	}
 
+    /**
+     * @return string
+     */
 	public function getFieldEnclosure() {
 		return $this->enclosure;
 	}
 
+    /**
+     * @param $hasheader
+     * @return $this
+     */
 	public function setHasHeader($hasheader) {
 		$this->hasheader = $hasheader;
 
 		return $this;
 	}
 
+    /**
+     * @return bool
+     */
 	public function getHasHeader() {
 		return $this->hasheader;
 	}
@@ -97,6 +137,9 @@ class CsvBulkLoaderSource extends BulkLoaderSource{
 		return new ArrayIterator($output);
 	}
 
+    /**
+     * @return array
+     */
 	public function getFirstRow(){
 		$handle = fopen($this->filepath,'r');
 		$header = fgetcsv(

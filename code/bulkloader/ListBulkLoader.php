@@ -11,12 +11,20 @@ class ListBulkLoader extends BetterBulkLoader {
 	 */
 	protected $list;
 
+    /**
+     * ListBulkLoader constructor.
+     * @param DataList $list
+     */
 	public function __construct(DataList $list) {
 		$this->list = $list;
 		//TODO: user error if list is null
 		parent::__construct($this->list->dataClass());
 	}
 
+    /**
+     * @param DataList $list
+     * @return $this
+     */
 	public function setList(DataList $list){
 		$this->list = $source;
 
